@@ -25,7 +25,7 @@ with open("sc.txt") as file_object:
 SECRET_KEY =lines
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_heroku',
 ]
+
+from django.contrib.messages import constants as message_constants
+MESSAGE_LEVEL = message_constants.DEBUG
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
@@ -125,3 +130,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#Moje ustawienia
+LOGIN_URL='users:login'
+
+# try to load local_settings.py if it exists
+try:
+  from local_settings import *
+except Exception as e:
+  pass
+#ustawieenia heroku
+import django_heroku
+django_heroku.settings(locals())

@@ -1,12 +1,21 @@
 {% extends "d3app/base.html" %}
-{% load static %}
 {% block content %}
 
-<h1>Kontrolki</h1>
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+  {{message}}
+</div>
+{% endfor %}
 
-<form action = "{% url 'd3app:index' %}" method="post">
+<div class="main">
+
+    <form action = "{% url 'd3app:index' %}" method="post">
     {% csrf_token%}
     {{form.as_p}}
     <button  class="btn btn-secondary px-5" name="submit">Add</button>
 </form>
+</div>
+
+
+
 {% endblock content %}
